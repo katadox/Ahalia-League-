@@ -1,12 +1,16 @@
 
-import { Trophy, Users, Calendar, BarChart } from "lucide-react";
+import { Trophy, Users, Calendar, BarChart, Zap, Timer, Film } from "lucide-react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { TournamentCard } from "@/components/dashboard/TournamentCard";
 import { UpcomingMatchCard } from "@/components/dashboard/UpcomingMatchCard";
 import { RecentResultCard } from "@/components/dashboard/RecentResultCard";
 import { TeamStandingsTable } from "@/components/dashboard/TeamStandingsTable";
-import { tournaments, teams, upcomingMatches, completedMatches } from "@/lib/sampleData";
+import { LiveScoreCard } from "@/components/dashboard/LiveScoreCard";
+import { UserMatchesCard } from "@/components/dashboard/UserMatchesCard";
+import { HighlightsCard } from "@/components/dashboard/HighlightsCard";
+import { tournaments, teams, upcomingMatches, completedMatches, liveMatches, allMatches, highlights } from "@/lib/sampleData";
+import { Separator } from "@/components/ui/separator";
 
 const Index = () => {
   // Get active tournaments
@@ -45,6 +49,22 @@ const Index = () => {
         </p>
       </div>
       
+      {/* Live Scoreboard Section */}
+      {liveMatches.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center mb-4">
+            <Zap className="h-5 w-5 mr-2 text-primary" />
+            <h2 className="text-xl font-semibold">Live Scoreboard</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {liveMatches.map(match => (
+              <LiveScoreCard key={match.id} match={match} />
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
         <StatCard
           title="Total Tournaments"
@@ -72,7 +92,16 @@ const Index = () => {
         />
       </div>
 
+      {/* User's Matches and Active Tournaments */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
+        <div>
+          <UserMatchesCard 
+            upcomingMatches={upcomingMatches} 
+            allMatches={allMatches}
+            teams={teams}
+          />
+        </div>
+        
         <div className="lg:col-span-2">
           <h2 className="text-xl font-semibold mb-4">Active Tournaments</h2>
           <div className="grid gap-4 md:grid-cols-2">
@@ -81,21 +110,20 @@ const Index = () => {
             ))}
           </div>
         </div>
-        
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Upcoming Matches</h2>
-          <div className="space-y-4">
-            {nextMatches.length > 0 ? (
-              nextMatches.map((match) => (
-                <UpcomingMatchCard key={match.id} match={match} />
-              ))
-            ) : (
-              <p className="text-muted-foreground text-sm">No upcoming matches</p>
-            )}
-          </div>
-        </div>
       </div>
+      
+      {/* Highlights Section */}
+      <div className="mb-8">
+        <div className="flex items-center mb-4">
+          <Film className="h-5 w-5 mr-2 text-primary" />
+          <h2 className="text-xl font-semibold">Highlights</h2>
+        </div>
+        <HighlightsCard highlights={highlights} />
+      </div>
+      
+      <Separator className="my-8" />
 
+      {/* Leaderboard and Recent Results */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <h2 className="text-xl font-semibold mb-4">

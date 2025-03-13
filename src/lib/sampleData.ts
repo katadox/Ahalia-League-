@@ -1,4 +1,3 @@
-
 import { Tournament, Team, Match } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -132,7 +131,7 @@ const teamId4 = teams[3].id;
 const teamId5 = teams[4].id;
 const teamId6 = teams[5].id;
 
-export const matches: Match[] = [
+export let matches: Match[] = [
   {
     id: uuidv4(),
     tournamentId: tournamentId,
@@ -206,8 +205,70 @@ export const matches: Match[] = [
   },
 ];
 
+// Add a live match
+const liveMatch: Match = {
+  id: uuidv4(),
+  tournamentId: tournamentId,
+  homeTeamId: teamId1,
+  awayTeamId: teamId4,
+  homeTeam: teams.find(team => team.id === teamId1),
+  awayTeam: teams.find(team => team.id === teamId4),
+  date: new Date().toISOString().split('T')[0], // Today's date
+  time: '15:30',
+  location: 'Main Stadium',
+  status: 'live',
+  homeScore: 2,
+  awayScore: 1,
+  round: 'Semi Finals',
+};
+
+// Add the live match to matches array
+matches.push(liveMatch);
+
+// Create highlights data
+export const highlights = [
+  {
+    id: uuidv4(),
+    title: 'Amazing Goal by John Smith',
+    description: 'A spectacular bicycle kick from outside the box',
+    date: '2023-11-15',
+    thumbnailUrl: 'https://picsum.photos/seed/highlight1/400/225',
+    videoUrl: '#',
+  },
+  {
+    id: uuidv4(),
+    title: 'Last Minute Winner',
+    description: 'David Wilson scores in the 90th minute to secure the win',
+    date: '2023-11-10',
+    thumbnailUrl: 'https://picsum.photos/seed/highlight2/400/225',
+    videoUrl: '#',
+  },
+  {
+    id: uuidv4(),
+    title: 'Tournament Opening Ceremony',
+    description: 'Highlights from the opening ceremony of ASL 2023',
+    date: '2023-10-15',
+    thumbnailUrl: 'https://picsum.photos/seed/highlight3/400/225',
+    videoUrl: '#',
+  },
+  {
+    id: uuidv4(),
+    title: 'Team Celebrations',
+    description: 'CS Tigers celebrating their group stage victory',
+    date: '2023-10-25',
+    thumbnailUrl: 'https://picsum.photos/seed/highlight4/400/225',
+    videoUrl: '#',
+  },
+];
+
+// Filter matches by status
 export const upcomingMatches = matches.filter(match => match.status === 'scheduled')
   .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 export const completedMatches = matches.filter(match => match.status === 'completed')
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+export const liveMatches = matches.filter(match => match.status === 'live');
+
+// Export all matches for stats calculations
+export const allMatches = matches;
