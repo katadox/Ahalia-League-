@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Trophy, Calendar, Users, ArrowRight } from "lucide-react";
 import { Tournament } from "@/lib/types";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 interface TournamentCardProps {
   tournament: Tournament;
@@ -66,9 +67,11 @@ export function TournamentCard({ tournament }: TournamentCardProps) {
         )}
       </CardContent>
       <CardFooter>
-        <Button variant="outline" className="w-full mt-2" size="sm">
-          <span>View Details</span>
-          <ArrowRight className="ml-2 h-4 w-4" />
+        <Button variant="outline" className="w-full mt-2" size="sm" asChild>
+          <Link to={`/tournaments/${tournament.id}`}>
+            <span>View Details and Register</span>
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </Button>
       </CardFooter>
     </Card>
