@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
@@ -25,7 +24,9 @@ const teamRegistrationSchema = z.object({
   captainName: z.string().min(3, { message: "Captain name is required" }),
   contactEmail: z.string().email({ message: "Invalid email address" }),
   contactPhone: z.string().min(10, { message: "Valid phone number is required" }),
-  teamSize: z.string().transform((val) => parseInt(val, 10)),
+  teamSize: z.string().transform((val) => parseInt(val, 10)).pipe(
+    z.number().min(11).max(15)
+  ),
   additionalNotes: z.string().optional(),
 });
 
