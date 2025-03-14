@@ -2,6 +2,8 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Bell, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useUser } from "@/components/layout/AppLayout";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function TopBar() {
+  const { currentUser } = useUser();
+
   return (
     <div className="border-b py-3 px-6 flex justify-between items-center">
       <div className="flex items-center">
@@ -33,11 +37,13 @@ export function TopBar() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="flex items-center gap-2">
               <User className="h-4 w-4" />
-              <span>Admin</span>
+              <span>{currentUser?.name || "User"}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to="/profile">View Profile</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Log out</DropdownMenuItem>
           </DropdownMenuContent>
