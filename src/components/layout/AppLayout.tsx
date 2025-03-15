@@ -34,7 +34,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   // In a real app, this would be fetched from an auth service
   const [currentUser, setCurrentUser] = useState<User | null>({
     id: "user-1",
-    name: "Rahul Sharma",
+    name: "Arrow Thomas",
     teamId: "team-1", // This should match an ID in the teams array
     role: 'player',
   });
