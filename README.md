@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# Welcome to Team Project done by Arrow, Driswal and Pragwal
+# Welcome to Team Project done by Arrow, Driswal and Prajwal
 
 ## Project info
 
