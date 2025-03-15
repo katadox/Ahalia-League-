@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# Welcome to your Lovable project
+# Welcome to Team Project done by Arrow, Driswal and Pragwal
 
 ## Project info
 
